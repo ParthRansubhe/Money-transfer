@@ -5,7 +5,9 @@ import Col from 'react-bootstrap/Col'
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
-
+import Footer from '../components/Footer'
+import Header from '../components/Header'
+import Body from '../components/Body';
 
 class Home extends Component {
   constructor(props) {
@@ -161,50 +163,9 @@ class Home extends Component {
     return (
       <Container >
         {this.showModal()}
-        <Row>
-          <Col style={{ "backgroundColor": "#c3c3c3", "height": "100px" }}>
-            <div >
-              <Col style={{ "textAlign": "start", "marginTop": "35px" }}>
-                <label><b>Balance: </b> Rs. {localStorage.getItem('currentBalance')}</label>
-                <div>
-                  <Row>
-                    <Col>
-                      <label>Income: {localStorage.getItem('income')}</label>
-                    </Col>
-                    <Col>
-                      <label>Spended: {localStorage.getItem('spendedMoney')}</label>
-                    </Col>
-                  </Row>
-                </div>
-              </Col>
-            </div>
-          </Col>
-        </Row>
-        <Row style={{ 'marginTop': "20px" }}>
-          <Col style={{ "backgroundColor": "white" }}>
-            <ListGroup >
-              {expenditure.length == 0 ? <p>No Spended money</p> :
-                expenditure.map((spend, index) => {
-                  return <ListGroup.Item style={{
-                    "display": "flex",
-                    "justifyContent": "space-between"
-                  }} key={index} variant={spend.spended ? "danger" : "success"}>
-                    <div>{spend.date}</div>
-                    <div>{spend.description}</div>
-                    <div>{"Rs."}{spend.moneyValue}</div>
-                  </ListGroup.Item>
-                })}
-            </ListGroup>
-          </Col>
-        </Row>
-        <Row style={{ 'marginTop': "20px" }}>
-          <Col>
-            <Button variant="success" onClick={() => this.popShow("Add")}>Add Money (+)</Button>
-          </Col>
-          <Col>
-            <Button variant="danger" onClick={() => this.popShow()}>Spended Money (-)</Button>
-          </Col>
-        </Row>
+        <Header />
+        <Body expenditure={expenditure} />
+        <Footer popShow={this.popShow} />
       </Container>
     );
   }
